@@ -61,7 +61,7 @@ resource "yandex_vpc_gateway" "egress_gateway" {
 }
 
 resource "yandex_vpc_route_table" "public" {
-  count      = var.public_subnets == null ? 0 : 1
+  count      = var.create_route_table && var.public_subnets != null ? 1 : 0
   name       = "${var.network_name}-public"
   network_id = local.vpc_id
   folder_id  = local.folder_id
@@ -76,7 +76,7 @@ resource "yandex_vpc_route_table" "public" {
 
 }
 resource "yandex_vpc_route_table" "private" {
-  count      = var.private_subnets == null ? 0 : 1
+  count      = var.create_route_table && var.private_subnets != null ? 1 : 0
   name       = "${var.network_name}-private"
   network_id = local.vpc_id
   folder_id  = local.folder_id

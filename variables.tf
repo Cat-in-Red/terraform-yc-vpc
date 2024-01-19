@@ -78,6 +78,12 @@ variable "create_nat_gw" {
   default     = true
 }
 
+variable "create_route_table" {
+  description = "Create route table for private/public subnets"
+  type        = bool
+  default     = true
+}
+
 variable "routes_public_subnets" {
   description = "Describe your route preferences for public subnets"
   type = list(object({
