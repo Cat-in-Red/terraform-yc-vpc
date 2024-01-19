@@ -9,8 +9,8 @@ output "public_v4_cidr_blocks" {
 }
 
 output "public_subnets" {
-  description = "Map of public subnets: `key = first v4_cidr_block`"
-  value = { for v in yandex_vpc_subnet.public : v.v4_cidr_blocks[0] => {
+  description = "Map of public subnets: `key = zone`"
+  value = { for v in yandex_vpc_subnet.public : v.zone => {
     "subnet_id"      = v.id,
     "name"           = v.name,
     "zone"           = v.zone
@@ -25,8 +25,8 @@ output "private_v4_cidr_blocks" {
 }
 
 output "private_subnets" {
-  description = "Map of private subnets: `key = first v4_cidr_block`"
-  value = { for v in yandex_vpc_subnet.private : v.v4_cidr_blocks[0] => {
+  description = "Map of private subnets: `key = zone`"
+  value = { for v in yandex_vpc_subnet.private : v.zone => {
     "subnet_id"      = v.id,
     "name"           = v.name,
     "zone"           = v.zone

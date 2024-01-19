@@ -1,25 +1,4 @@
-# Virtual Private Cloud (VPC) Terraform module for Yandex.Cloud
-
-## Features
-
-- Create Network and subnets in your folder
-- Supports MultiFolder VPC concept by adding folder_id to subnet object
-- Subnets can be both public for VMs with public IPs and private, with or without NAT gateway
-- Configure your default security group
-- Easy to use in other resources via outputs
-
-### How to Configure Terraform for Yandex.Cloud
-
-- Install [YC CLI](https://cloud.yandex.com/docs/cli/quickstart)
-- Add environment variables for terraform authentication in Yandex.Cloud
-
-```
-export YC_TOKEN=$(yc iam create-token)
-export YC_CLOUD_ID=$(yc config get cloud-id)
-export YC_FOLDER_ID=$(yc config get folder-id)
-```
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -31,7 +10,7 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 
 | Name | Version |
 |------|---------|
-| <a name="provider_yandex"></a> [yandex](#provider\_yandex) | 0.104.0 |
+| <a name="provider_yandex"></a> [yandex](#provider\_yandex) | > 0.8 |
 
 ## Modules
 
@@ -74,9 +53,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | Map of private subnets: `key = first v4_cidr_block` |
+| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | Map of private subnets: `key = zone` |
 | <a name="output_private_v4_cidr_blocks"></a> [private\_v4\_cidr\_blocks](#output\_private\_v4\_cidr\_blocks) | List of `v4_cidr_blocks` used in the VPC network |
-| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | Map of public subnets: `key = first v4_cidr_block` |
+| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | Map of public subnets: `key = zone` |
 | <a name="output_public_v4_cidr_blocks"></a> [public\_v4\_cidr\_blocks](#output\_public\_v4\_cidr\_blocks) | List of `v4_cidr_blocks` used in the VPC network |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the created network for internal communications |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
