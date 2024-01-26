@@ -3,8 +3,11 @@ data "yandex_client_config" "client" {}
 
 ### Locals
 locals {
-  folder_id = var.folder_id == null ? data.yandex_client_config.client.folder_id : var.folder_id
-  vpc_id    = var.create_vpc ? yandex_vpc_network.this[0].id : var.vpc_id
+  folder_id                = var.folder_id == null ? data.yandex_client_config.client.folder_id : var.folder_id
+  vpc_id                   = var.create_vpc ? yandex_vpc_network.this[0].id : var.vpc_id
+  public_route_table_id    = var.create_route_table && var.public_subnets != null  ? yandex_vpc_route_table.public[0].id : var.public_route_table_id
+  private_route_table_id   = var.create_route_table && var.private_subnets != null ? yandex_vpc_route_table.private[0].id : var.public_route_table_id
+
 }
 
 ### Network
@@ -24,7 +27,7 @@ resource "yandex_vpc_subnet" "public" {
   zone           = each.value.zone
   network_id     = local.vpc_id
   folder_id      = lookup(each.value, "folder_id", local.folder_id)
-  route_table_id = try(yandex_vpc_route_table.public[0].id, null)
+  route_table_id = try(var.public_route_table_id, null)
   dhcp_options {
     domain_name         = var.domain_name
     domain_name_servers = var.domain_name_servers
@@ -42,7 +45,7 @@ resource "yandex_vpc_subnet" "private" {
   zone           = each.value.zone
   network_id     = local.vpc_id
   folder_id      = lookup(each.value, "folder_id", local.folder_id)
-  route_table_id = try(yandex_vpc_route_table.private[0].id, null)
+  route_table_id = try(var.private_route_table_id, null)
   dhcp_options {
     domain_name         = var.domain_name
     domain_name_servers = var.domain_name_servers

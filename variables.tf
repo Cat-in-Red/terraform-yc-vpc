@@ -84,6 +84,20 @@ variable "create_route_table" {
   default     = true
 }
 
+variable "public_route_table_id" {
+  type        = string
+  default     = null
+  description = "External route table for public subnets"
+}
+
+
+variable "private_route_table_id" {
+  type        = string
+  default     = null
+  description = "External route table for pruvate subnets"
+}
+
+
 variable "routes_public_subnets" {
   description = "Describe your route preferences for public subnets"
   type = list(object({
