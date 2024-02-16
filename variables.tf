@@ -117,7 +117,13 @@ variable "routes_private_subnets" {
 variable "domain_name" {
   type        = string
   default     = "internal."
-  description = "Domain name to be added to DHCP options"
+  description = "Domain name to be added to DHCP options. Used only if domain_zone_id not specified"
+}
+
+variable "domain_zone_id" {
+  type        = string
+  default     = ""
+  description = "Domain zone to be added to DHCP options"
 }
 
 variable "domain_name_servers" {
